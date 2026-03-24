@@ -1,4 +1,4 @@
-Welcome to my repository! 
+Welcome to my repository
 
 This repo is a growing collection of DataLemur SQL questions that I’ve solved using my own approach and thought process.
 
