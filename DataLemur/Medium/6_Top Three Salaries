@@ -1,0 +1,11 @@
+select department_name,name,salary 
+from 
+(SELECT d.department_name,e.name,e.salary,DENSE_RANK() 
+OVER (partition by department_name order by salary desc ) as rnk 
+from employee e 
+left join 
+department d 
+on e.department_id = d.department_id 
+) t 
+where rnk <=3 
+order by department_name,salary desc,name asc ;
