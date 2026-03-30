@@ -1,0 +1,14 @@
+SELECT DATE(measurement_time) AS measurement_day,
+SUM(CASE WHEN rnk % 2 != 0 THEN measurement_value ELSE 0 END) AS odd_sum,
+SUM(CASE WHEN rnk % 2 = 0 THEN measurement_value ELSE 0 END) AS even_sum
+FROM 
+(
+SELECT *,
+DENSE_RANK() OVER (
+PARTITION BY DATE(measurement_time)
+ORDER BY measurement_time
+) AS rnk
+FROM measurements
+) t
+GROUP BY DATE(measurement_time)
+order by odd_sum ;
