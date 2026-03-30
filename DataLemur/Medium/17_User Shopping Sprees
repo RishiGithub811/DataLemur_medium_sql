@@ -1,0 +1,13 @@
+with cte as 
+(
+SELECT user_id , DENSE_RANK () 
+OVER (partition by user_id 
+order by transaction_date ) as rnk 
+FROM transactions
+) 
+select user_id 
+from cte 
+where rnk IN (1,2,3)
+group by user_id
+HAVING COUNT(DISTINCT rnk) = 3;
+;
