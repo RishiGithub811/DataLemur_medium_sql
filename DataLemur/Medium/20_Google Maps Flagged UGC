@@ -1,0 +1,7 @@
+SELECT p.place_category,m.content_tag
+FROM place_info p 
+left join 
+maps_ugc_review m 
+on p.place_id = m.place_id 
+group by p.place_category,m.content_tag
+--having m.content_tag = 'off-topic';
