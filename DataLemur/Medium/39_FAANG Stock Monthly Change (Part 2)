@@ -1,0 +1,18 @@
+with cte as 
+(
+select 
+      ticker,
+      date,
+      close,
+      LAG(CLOSE) OVER (PARTITION BY ticker order by date) as prev_close
+from stock_prices
+) 
+select 
+      ticker,
+      date,
+      close,
+      ROUND(((close - prev_close)/prev_close) * 100,2) 
+      AS intermth_change_pct 
+      FROM 
+cte       
+      
