@@ -1,0 +1,8 @@
+select country,
+sum(num_search) as total_search,
+round(sum(num_search * invalid_result_pct)/SUM(num_search),2) 
+as invalid_searches_pct
+from search_category
+where invalid_result_pct IS NOT NULL
+group by country 
+order by country;
